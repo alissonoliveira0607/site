@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         
-        stage('Clean'){
+        
             
         //     steps{
                 
@@ -63,11 +63,11 @@ pipeline {
                 }
             }
         }
-
-         steps{
+        stage('Clean'){
+             steps{
                 
                 //Limpa o WORKSPACE
-                cleanWs()
+                 cleanWs()
                 
             
             }
