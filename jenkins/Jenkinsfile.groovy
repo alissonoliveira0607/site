@@ -49,7 +49,7 @@ pipeline {
                         sh "scp -i ${keyfile} -r $WORKSPACE ${username}@172.27.11.${it}:/tmp/html"
                         
                         //Atribui o retorno do comando para a variavel lighttpd como se fosse um subshell
-                        lighttpd = sh(returnStdout: true, script: "ssh -i ${keyfile} ${username}@172.27.11.${it} 'echo `which apt &> /dev/null && echo www-data || echo lighttpd`'").trim()   //o trim() remove os espaços e quebras de linha indesejados
+                        lighttpd = sh(returnStdout: true, script: "ssh -i ${keyfile} ${username}@172.27.11.${it} 'echo `which apt &> /dev/null && echo www-data || echo lighttpd`'").trim()   //o trim() remove os espaços e quebras de linha indesejados para que não quebre a pipeline
                         
                         //Conecta na maquina, remove os arquivos depois move novamente setando as permissões necesários de acordo com o user seja www-data ou lighttpd
                         sh "ssh -i ${keyfile} ${username}@172.27.11.${it} 'sudo rm -rf /srv/www/html && sudo mv /tmp/html /srv/www && sudo chown -R ${lighttpd}: /srv/www/html'"
