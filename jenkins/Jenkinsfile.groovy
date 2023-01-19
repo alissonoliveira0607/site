@@ -5,14 +5,14 @@ pipeline {
         
         stage('Clean'){
             
-            steps{
+        //     steps{
                 
-                //Limpa o WORKSPACE
-                cleanWs()
-                sh 'rm -rf .git*'
+        //         //Limpa o WORKSPACE
+        //         cleanWs()
+                
             
-            }
-        }
+        //     }
+        // }
         
         // stage('Fetch') {
         //     steps {
@@ -30,6 +30,9 @@ pipeline {
         stage('Deploy'){
             steps{
                 
+                //remove diretório .git
+                sh 'rm -rf .git*'
+
                 //Substitui o que for Distribution por Jenkins no arquivo index.html
                 sh "sed -i 's/Distribution/Jenkins - Pipeline/' index.html"
                 
@@ -60,5 +63,14 @@ pipeline {
                 }
             }
         }
+
+         steps{
+                
+                //Limpa o WORKSPACE
+                cleanWs()
+                
+            
+            }
+        }        
     }
 }
